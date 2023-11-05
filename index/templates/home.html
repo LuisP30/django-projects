@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock title %}
+
+{% block internal_css %}
+    <style type="text/css">
+
+    </style>
+{% endblock internal_css %}
+
+{% block content %}
+    <h1>Página Principal</h1>
+    <p><a href="{% url 'autenticacao:login' %}">Página de Login</a></p>
+    <p><a href="{% url 'autenticacao:cadastro' %}">Página de Cadastro</a></p>
+{% endblock content %}

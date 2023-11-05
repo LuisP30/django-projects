@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock title %}
+{% block internal_css %}
+    <style type="text/css">
+        form
+        {
+            display: grid;
+            max-width: 10%;
+        }
+    </style>
+{% endblock internal_css %}
+{% block content %}
+    <h1>Página de Login</h1>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" value="">
+        <label for="sobrenome">Sobrenome:</label>
+        <input type="text" name="sobrenome" value="">
+        <br>
+        <input type="submit" value="Enviar">
+    </form>
+    <p>Nome: {{ nome }}</p>
+    <p>Sobrenome: {{ sobrenome }}</p>
+    <p>Horas: {{ data }}</p>
+{% endblock content %}
