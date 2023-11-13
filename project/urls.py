@@ -5,5 +5,5 @@ from index import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('autenticacao/', include('autenticacao.urls')),
-    path('', views.index)
+    path('', views.index, name='inicio')
 ]

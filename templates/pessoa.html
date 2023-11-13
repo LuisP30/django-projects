@@ -1,0 +1,30 @@
+{% extends "partials/base.html" %}
+{% load filtros %}
+{% block title %}Pessoas{% endblock title %}
+{% block internal_css %}
+
+{% endblock internal_css %}
+{% block content %}
+    <h1>Pessoas Cadastradas</h1>
+    {% for pessoa in pessoas %}
+        <p><b></b>{{ pessoa.id | teste }}</p> <!--Trabalhando com filtros-->
+        <p><b>Nome: </b><a href="{% url 'autenticacao:perfil' pessoa.id %}">{{ pessoa.nome }} {{ pessoa.sobrenome }}</a></p>
+        <p><b>E-mail:</b> {{ pessoa.email }}</p>
+        <p><b>Cargos:</b>
+            {% for cargo in pessoa.cargo.all %}
+                {{ cargo }}
+            {% endfor %}
+        </p>
+        <p><b>Data de Cadastro:</b> {{ pessoa.dt_criacao }}</p>
+        <form method="POST" action="{% url "autenticacao:delete" pessoa.id %}">
+            {% csrf_token %}
+            <input type="submit" value="Excluir">
+        </form>
+        <hr>
+    {% empty %}
+        <p>Nenhuma pessoa encontrada</p>
+        <hr>
+    {% endfor %}
+    <br>
+    <a href="{% url 'inicio' %}" class="voltar"> &lt= Voltar</a>
+{% endblock content %}

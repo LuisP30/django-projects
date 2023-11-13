@@ -10,15 +10,10 @@
     </style>
 {% endblock internal_css %}
 {% block content %}
-    <h1>Página de Login</h1>
-    <form method="POST" action="">
+    <h1>Página de Cadastro</h1>
+    <form method="POST">
         {% csrf_token %}
-        <label for="usuario">Usuário:</label>
-        <input type="text" name="usuario" value="">
-        <label for="senha">Senha:</label>
-        <input type="password" name="senha" value="">
-        <br>
-        <input type="submit" value="Enviar">
+        {% include "partials/formulario.html" %}
     </form>
     <br>
     <a href="{% url 'inicio' %}" class="voltar"> &lt= Voltar</a>
