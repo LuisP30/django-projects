@@ -10,7 +10,13 @@
 
 {% block content %}
     <h1>Página Principal</h1>
-    <p><a href="{% url 'autenticacao:login' %}">Página de Login</a></p>
-    <p><a href="{% url 'autenticacao:cadastro' %}">Página de Cadastro</a></p>
+    {% if not user.is_authenticated %}
+        <p><a href="{% url 'autenticacao:login' %}">Página de Login</a></p>
+        <p><a href="{% url 'autenticacao:cadastro' %}">Página de Cadastro</a></p>
+    {% endif %}
     <p><a href="{% url 'autenticacao:pessoas' %}">Pessoas Cadastradas</a></p>
+    {% if user.is_authenticated %}
+        <p class="logado"><a href="">Meu Perfil</a></p>
+        <p class="logado"><a href="{% url "autenticacao:logout" %}">Sair</a></p>
+    {% endif %}
 {% endblock content %}

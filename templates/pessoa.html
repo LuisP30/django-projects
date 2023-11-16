@@ -8,13 +8,8 @@
     <h1>Pessoas Cadastradas</h1>
     {% for pessoa in pessoas %}
         <p><b></b>{{ pessoa.id | teste }}</p> <!--Trabalhando com filtros-->
-        <p><b>Nome: </b><a href="{% url 'autenticacao:perfil' pessoa.id %}">{{ pessoa.nome }} {{ pessoa.sobrenome }}</a></p>
+        <p><b>Nome: </b><a href="{% url 'autenticacao:perfil' %}">{{ pessoa.nome }} {{ pessoa.sobrenome }}</a></p>
         <p><b>E-mail:</b> {{ pessoa.email }}</p>
-        <p><b>Cargos:</b>
-            {% for cargo in pessoa.cargo.all %}
-                {{ cargo }}
-            {% endfor %}
-        </p>
         <p><b>Data de Cadastro:</b> {{ pessoa.dt_criacao }}</p>
         <form method="POST" action="{% url "autenticacao:delete" pessoa.id %}">
             {% csrf_token %}

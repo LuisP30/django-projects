@@ -1,34 +1,25 @@
-# flake8: noqa
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.hashers import make_password
 from . import models
+from . import forms
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
 def cadastro(request):
-    if request.method == "POST":
-        nome = request.POST.get('nome')
-        sobrenome = request.POST.get('sobrenome')
-        email = request.POST.get('email')
-        cargo = request.POST.get('cargo')
-        senha = request.POST.get('senha')
-        pessoa = models.Pessoa( 
-            nome = nome,
-            sobrenome = sobrenome,
-            email = email,
-            senha = senha,
-        )
-        pessoa.save()
-        cargos = models.Cargos.objects.get(id=int(cargo))
-        pessoas = models.Pessoa.objects.get(id=pessoa.id)
-        pessoas.cargo.add(cargos.id)
-        pessoa.save()
-        return redirect('autenticacao:pessoas') 
+    form = forms.PessoaForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('inicio') 
 
-    else:
-        return render(request, 'cadastro.html')
+
+    form = forms.PessoaForm()
+    return render(request, 'cadastro.html', context={
+        'form': form
+    })
 
 
 def login(request):
-    return render(request, 'login.html')
+    return render(request, 'registration/login.html')
 
 def pessoas(request):
     # pessoas = models.Pessoa.objects.filter(id = 1).filter(nome = 'Luis')  # AND
@@ -39,11 +30,10 @@ def pessoas(request):
         'pessoas': pessoas
     })
 
-def perfil(request, id):
-    pessoa = get_object_or_404(models.Pessoa, id=id)
-    return render(request, 'perfil.html', context={
-        'pessoa': pessoa,
-    })
+@login_required
+def perfil(request):
+    # pessoa = get_object_or_404(models.Pessoa, id=id)
+    return render(request, 'perfil.html')
 
 def editar_pessoa(request, id):
     pessoa = models.Pessoa.objects.filter(id=id).get()
@@ -51,7 +41,6 @@ def editar_pessoa(request, id):
         pessoa.nome = request.POST.get('nome')
         pessoa.sobrenome = request.POST.get('sobrenome')
         pessoa.email = request.POST.get('email')
-        pessoa.cargo = request.POST.get('cargo')
         pessoa.senha = request.POST.get('senha')
         pessoa.save()
         return redirect('autenticacao:pessoas')

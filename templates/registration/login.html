@@ -1,5 +1,5 @@
 {% extends "partials/base.html" %}
-{% block title %}Cadastro{% endblock title %}
+{% block title %}Login{% endblock title %}
 {% block internal_css %}
     <style type="text/css">
         form
@@ -13,12 +13,10 @@
     <h1>Página de Login</h1>
     <form method="POST" action="">
         {% csrf_token %}
-        <label for="usuario">Usuário:</label>
-        <input type="text" name="usuario" value="">
-        <label for="senha">Senha:</label>
-        <input type="password" name="senha" value="">
+        <p>Usuário: {{ form.username }}</p>
+        <p>Senha:{{ form.password }}</p>
         <br>
-        <input type="submit" value="Enviar">
+        <input type="submit" value="Autenticar">
     </form>
     <br>
     <a href="{% url 'inicio' %}" class="voltar"> &lt= Voltar</a>
