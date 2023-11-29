@@ -18,6 +18,11 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 
+class Cargos(models.Model):
+    nome = models.CharField(max_length=15)
+    def __str__(self):
+        return self.nome
+
 class Pessoa(AbstractBaseUser, PermissionsMixin):
     nome = models.CharField(max_length=50, blank=False, null=False)
     sobrenome = models.CharField(max_length=50, blank=False, null=True)
@@ -25,8 +30,8 @@ class Pessoa(AbstractBaseUser, PermissionsMixin):
     dt_criacao = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-
     objects = CustomUserManager()
+    cargo = models.ManyToManyField(Cargos)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ('nome', 'password')
