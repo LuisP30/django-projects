@@ -1,0 +1,22 @@
+{% extends "partials/base.html" %}
+{% block title %}Cadastro{% endblock title %}
+{% block internal_css %}
+    <style type="text/css">
+        form
+        {
+            display: grid;
+            max-width: 10%;
+        }
+    </style>
+{% endblock internal_css %}
+{% block content %}
+    <h1>Página de Cadastro</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <br>
+        <input type="submit" value="Enviar">
+    </form>
+    <br>
+    <a href="{% url 'inicio' %}" class="voltar"> &lt= Voltar</a>
+{% endblock content %}

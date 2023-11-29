@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    {% include "partials/head.html" %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>{% block title %}{% endblock title %} | Django</title>
+    {% block internal_css %}
+
+    {% endblock internal_css %}
+</head>
+<body>
+    <div class="container">        
+        {% include "partials/header.html" %}
+        <main>
+            {% block content %}{% endblock content %}
+        </main>
+        {% include "partials/footer.html" %}
+    </div>
+</body>
+</html>

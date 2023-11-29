@@ -1,0 +1,23 @@
+{% extends "partials/base.html" %}
+{% block title %}Login{% endblock title %}
+{% block internal_css %}
+    <style type="text/css">
+        form
+        {
+            display: grid;
+            max-width: 10%;
+        }
+    </style>
+{% endblock internal_css %}
+{% block content %}
+    <h1>Página de Login</h1>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <p>Usuário: {{ form.username }}</p>
+        <p>Senha:{{ form.password }}</p>
+        <br>
+        <input type="submit" value="Autenticar">
+    </form>
+    <br>
+    <a href="{% url 'inicio' %}" class="voltar"> &lt= Voltar</a>
+{% endblock content %}
