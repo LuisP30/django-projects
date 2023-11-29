@@ -1,0 +1,23 @@
+body
+{
+    background-color: black;
+    color: white;
+}
+.container
+{
+    display: flex;
+    justify-content: center;
+}
+h1
+{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+p, a
+{
+    text-decoration: none;
+    color: white;
+}
+.voltar
+{
+    font-weight: bold;
+}
