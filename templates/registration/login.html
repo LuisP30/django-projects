@@ -13,8 +13,8 @@
     <h1>Página de Login</h1>
     <form method="POST" action="">
         {% csrf_token %}
-        <p>Usuário: {{ form.username }}</p>
-        <p>Senha:{{ form.password }}</p>
+        Usuário: {{ form.username }}
+        Senha:{{ form.password }}
         <br>
         <input type="submit" value="Autenticar">
     </form>
