@@ -1,0 +1,12 @@
+#header
+{
+    background: darkgreen;
+}
+input[type=submit]
+{
+    background: black;
+}
+h1
+{
+    color: red;
+}

@@ -32,11 +32,14 @@ def pessoas(request):
 
 @login_required
 def perfil(request):
-    # pessoa = get_object_or_404(models.Pessoa, id=id)
-    return render(request, 'perfil.html')
+    #pessoa = get_object_or_404(models.Pessoa, id=id)
+    form = forms.PessoaForm()
+    return render(request, 'perfil.html', context={
+        'form': form,
+    })
 
 def editar_pessoa(request, id):
-    pessoa = models.Pessoa.objects.filter(id=id).get()
+    pessoa = models.Pessoa.objects.get(id=id)
     if request.POST:
         pessoa.nome = request.POST.get('nome')
         pessoa.sobrenome = request.POST.get('sobrenome')

@@ -11,14 +11,16 @@
 {% endblock internal_css %}
 {% block content %}
     <h1>{{ user.nome }} {{ user.sobrenome }}</h1>
+    <figure>
+        <img src="../../media/{{user.imagem}}" width="100px" width="100px">
+    </figure>
     <form method="POST" action="">
         {% csrf_token %}
-        {% include "partials/formulario.html" %}
+        {{ form }}
     </form>
     <br>
     {% if user.is_authenticated %}
         <p><a href="{% url 'autenticacao:logout' %}">Sair</a></p>
-        <p>{{ user.nome }}</p>
     {% endif %}
     <a href="{% url 'inicio' %}" class="voltar"> &lt= Voltar</a>
 {% endblock content %}

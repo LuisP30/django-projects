@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
-
+from django.utils.safestring import mark_safe
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -24,6 +24,7 @@ class Cargos(models.Model):
         return self.nome
 
 class Pessoa(AbstractBaseUser, PermissionsMixin):
+    imagem = models.ImageField(upload_to='users-img')
     nome = models.CharField(max_length=50, blank=False, null=False)
     sobrenome = models.CharField(max_length=50, blank=False, null=True)
     email = models.EmailField(max_length=100, blank=False, null=False, unique=True)
@@ -37,4 +38,20 @@ class Pessoa(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ('nome', 'password')
 
     def __str__(self):
+        return self.nome
+
+    def get_nome_completo(self):
+        return f'{self.nome} {self.sobrenome}'
+    
+    @mark_safe
+    def get_image(self):
+        return f'<img width="30px" src="/media/{self.imagem}">'
+
+class Pedido(models.Model):
+    nome = models.CharField(max_length=100)
+    quantidade = models.IntegerField()
+    descricao = models.TextField(max_length=100)
+    pessoa = models.ForeignKey(Pessoa, on_delete=models.DO_NOTHING)
+
+    def __str__(self) -> str:
         return self.nome

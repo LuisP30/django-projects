@@ -16,7 +16,7 @@
     {% endif %}
     <p><a href="{% url 'autenticacao:pessoas' %}">Pessoas Cadastradas</a></p>
     {% if user.is_authenticated %}
-        <p class="logado"><a href="">Meu Perfil</a></p>
+        <p class="logado"><a href="{% url 'autenticacao:perfil' %}">Meu Perfil</a></p>
         <p class="logado"><a href="{% url "autenticacao:logout" %}">Sair</a></p>
     {% endif %}
 {% endblock content %}
