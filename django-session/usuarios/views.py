@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.urls import reverse, resolve
+from django.urls import reverse
 from django.http import HttpResponse
 from .models import *
 from hashlib import sha256
@@ -17,7 +17,8 @@ def valida_login(request):
     if len(usuario) == 0:
         return redirect(f'{reverse("usuarios:login")}?status=1')
     elif len(usuario) > 0:
-        ...
+        request.session['logado'] = True
+        return redirect('plataforma:home')
 
     return HttpResponse(f'{email} {senha}')
 
@@ -50,3 +51,8 @@ def valida_cadastro(request):
         return redirect(f'{reverse("usuarios:cadastro")}?status=0')
     except:
         return redirect(f'{reverse("usuarios:cadastro")}?status=4')
+
+# View para sair
+def sair(request):
+    request.session['logado'] = None
+    return redirect('usuarios:login')
