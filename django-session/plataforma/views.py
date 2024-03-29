@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.http import HttpResponse
 
 def home(request):
-    if request.session['logado']:
-        return HttpResponse('Você está no sistema')
+    if request.session.get('logado'):
+        return render(request, 'home.html')
     else:
         return redirect(f'{reverse("usuarios:login")}?status=2')

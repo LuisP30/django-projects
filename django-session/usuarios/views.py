@@ -17,7 +17,7 @@ def valida_login(request):
     if len(usuario) == 0:
         return redirect(f'{reverse("usuarios:login")}?status=1')
     elif len(usuario) > 0:
-        request.session['logado'] = True
+        request.session['status'] = {'logado': True, 'usuario_id': usuario[0].id}
         return redirect('plataforma:home')
 
     return HttpResponse(f'{email} {senha}')
@@ -54,5 +54,8 @@ def valida_cadastro(request):
 
 # View para sair
 def sair(request):
-    request.session['logado'] = None
+    # request.session.clear()
+    # O clear apaga todos os dados da minha session e mantém a sessão sem dado nenhum
+    # O flush apaga a sessão com todos os dados
+    request.session.flush() # Flush é mais recomendável, clear seria recomendável para armazenar carrinho do usuário
     return redirect('usuarios:login')
