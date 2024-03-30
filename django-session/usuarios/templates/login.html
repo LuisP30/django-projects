@@ -18,7 +18,11 @@
                 Faça login antes de acessar o sistema
             </div>
         {% endif %}
-
+        {% if status == '3' %}
+            <div class="alert alert-primary" role="alert">
+                Você já está desconectado
+            </div>
+        {% endif %}
         <div class="row">
             <div class="col-md-3">
                 
