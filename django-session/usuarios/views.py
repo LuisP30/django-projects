@@ -23,8 +23,6 @@ def valida_login(request):
         request.session['usuario_id'] = usuario[0].id
         return redirect('plataforma:home')
 
-    return HttpResponse(f'{email} {senha}')
-
 # Views para cadastro abaixo:
 def cadastro(request):
     return render(request, 'cadastro.html')
