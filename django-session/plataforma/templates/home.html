@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 {% block titulo %}Logado Sistema{% endblock titulo %}
 {% block conteudo %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {{ message.tags }}" role>{{ message }}</div>
+        {% endfor %}
+    {% endif %}
     <a href="{% url 'usuarios:sair' %}" class="btn btn-danger btn-lg">Sair</a>
 {% endblock conteudo %}

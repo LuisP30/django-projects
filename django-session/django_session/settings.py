@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+from django.contrib.messages import constants
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -117,9 +118,18 @@ TIME_ZONE = 'America/Sao_Paulo'
 
 STATIC_URL = 'static/'
 
-SESSION_COOKIE_AGE = 60 # 5 minutos
+SESSION_COOKIE_AGE = 60 * 5 # 5 minutos
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Django message
+MESSAGE_TAGS = {
+    constants.DEBUG: 'alert-dark',
+    constants.ERROR: 'alert-danger',
+    constants.SUCCESS: 'alert-success',
+    constants.INFO: 'alert-info',
+    constants.WARNING: 'alert-warning',
+}

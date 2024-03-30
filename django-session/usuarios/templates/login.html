@@ -8,16 +8,12 @@
     <div class="container">
         <br>
 
-        {% if status == '1' %}
-            <div class="alert alert-warning" role="alert">
-                Email ou senha inválidos
-            </div>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {{ message.tags }}" role="alert">{{ message }}</div>
+            {% endfor %}
         {% endif %}
-        {% if status == '2' %}
-            <div class="alert alert-warning" role="alert">
-                Faça login antes de acessar o sistema
-            </div>
-        {% endif %}
+
         {% if status == '3' %}
             <div class="alert alert-primary" role="alert">
                 Você já está desconectado
