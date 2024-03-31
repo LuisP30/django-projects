@@ -5,6 +5,7 @@ from .models import *
 from hashlib import sha256
 from django.contrib.messages import constants
 from django.contrib import messages
+from django.contrib.auth.models import User
 
 def login(request):
     return render(request, 'login.html')
@@ -41,9 +42,8 @@ def valida_cadastro(request):
         messages.add_message(request, constants.ERROR, 'Sua senha deve ter no mínimo 8 caracteres')
         senha_invalida = True
     
-    usuario = Usuario.objects.filter(email = email)
 
-    if len(usuario) > 0:
+    if User.objects.filter(email = email).exists():
         messages.add_message(request, constants.ERROR, 'E-mail já cadastrado')
         nome_email_invalidos = True
 
@@ -52,11 +52,7 @@ def valida_cadastro(request):
     
     try:
         senha = sha256(senha.encode()).hexdigest()
-        usuario = Usuario(
-            nome = nome,
-            email = email,
-            senha = senha
-        )
+        usuario = User.objects.create_user(username = nome, email = email, password = senha)
         usuario.save()
         messages.add_message(request, constants.SUCCESS, 'Usuário cadastrado com sucesso!')
         return redirect("usuarios:cadastro")
