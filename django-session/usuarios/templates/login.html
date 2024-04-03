@@ -28,8 +28,8 @@
                 <hr>
                 <form action="{% url 'usuarios:valida_login' %}" method="POST">
                     {% csrf_token %}
-                    <label for="email">E-mail:</label>
-                    <input name="email" class="form-control" type="email" placeholder="E-mail">
+                    <label for="nome">Nome:</label>
+                    <input name="nome" class="form-control" type="text" placeholder="Nome">
                     <br>
                     <label for="senha">Senha:</label>
                     <input name="senha" class="form-control" type="password" placeholder="Senha">
