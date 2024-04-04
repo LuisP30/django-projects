@@ -8,6 +8,8 @@ from django.contrib import messages, auth
 from django.contrib.auth.models import User
 
 def login(request):
+    if request.user.is_authenticated:
+        return redirect('plataforma:home')
     return render(request, 'login.html')
 
 def valida_login(request):
@@ -21,6 +23,7 @@ def valida_login(request):
         return redirect("usuarios:login")
     else:
         auth.login(request, usuario)
+        messages.add_message(request, constants.INFO, 'Olá seja bem vindo!')
         return redirect('plataforma:home')
 
 # Views para cadastro abaixo:
@@ -64,11 +67,5 @@ def valida_cadastro(request):
 
 # View para sair
 def sair(request):
-    # request.session.clear()
-    # O clear apaga todos os dados da minha session e mantém a sessão sem dado nenhum
-    # O flush apaga a sessão com todos os dados
-    # request.session.flush() # Flush é mais recomendável, clear seria recomendável para armazenar carrinho do usuário
+    auth.logout(request)
     return redirect('usuarios:login')
-
-    # return HttpResponse(request.session.get_expiry_date()) # Mostrando a quantidade de segundos que faltam para a sessão do usuário expirar
-    # Também temos o get_expiry_date. No settings do projeto eu posso definir um tempo manualmente para a duração da session

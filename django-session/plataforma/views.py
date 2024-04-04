@@ -6,5 +6,4 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url = 'usuarios:login')
 def home(request):
-    messages.add_message(request, constants.INFO, 'Olá seja bem vindo!')
     return render(request, 'home.html')
