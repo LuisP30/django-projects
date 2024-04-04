@@ -118,7 +118,7 @@ TIME_ZONE = 'America/Sao_Paulo'
 
 STATIC_URL = 'static/'
 
-SESSION_COOKIE_AGE = 60 * 5 # 5 minutos
+SESSION_COOKIE_AGE = 60 * 60 # 1 hora
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

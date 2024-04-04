@@ -1,9 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.http import HttpResponse
-from .models import *
-from hashlib import sha256
 from django.contrib.messages import constants
+from .models import *
 from django.contrib import messages, auth
 from django.contrib.auth.models import User
 
@@ -31,9 +29,14 @@ def cadastro(request):
     return render(request, 'cadastro.html')
 
 def valida_cadastro(request):
+    # Dados pessoais
     nome = request.POST.get('nome')
     email = request.POST.get('email')
     senha = request.POST.get('senha')
+    # Dados residenciais
+    cep = request.POST.get('cep')
+    rua = request.POST.get('rua')
+    numero = request.POST.get('numero')
 
     nome_email_invalidos = False
     senha_invalida = False
@@ -59,6 +62,8 @@ def valida_cadastro(request):
     try:
         usuario = User.objects.create_user(username = nome, email = email, password = senha)
         usuario.save()
+        endereco_cadastro = EnderecoUsuario(usuario=usuario, cep=cep, rua=rua, numero=numero)
+        endereco_cadastro.save()
         messages.add_message(request, constants.SUCCESS, 'Usuário cadastrado com sucesso!')
         return redirect("usuarios:cadastro")
     except:
