@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.contrib.messages import constants
 from .models import *
 from django.contrib import messages, auth
-from django.contrib.auth.models import User
+
 
 def login(request):
     if request.user.is_authenticated:
@@ -48,11 +48,11 @@ def valida_cadastro(request):
         senha_invalida = True
     
 
-    if User.objects.filter(email = email).exists():
+    if Users.objects.filter(email = email).exists():
         messages.add_message(request, constants.ERROR, 'E-mail já cadastrado')
         nome_email_invalidos = True
 
-    if User.objects.filter(username = nome).exists():
+    if Users.objects.filter(username = nome).exists():
         messages.add_message(request, constants.ERROR, 'Nome de usuário já existe')
         nome_email_invalidos = True
 
@@ -60,10 +60,8 @@ def valida_cadastro(request):
         return redirect('usuarios:cadastro')
     
     try:
-        usuario = User.objects.create_user(username = nome, email = email, password = senha)
+        usuario = Users.objects.create_user(username = nome, email = email, password = senha, cep = cep, rua = rua, numero = numero)
         usuario.save()
-        endereco_cadastro = EnderecoUsuario(usuario=usuario, cep=cep, rua=rua, numero=numero)
-        endereco_cadastro.save()
         messages.add_message(request, constants.SUCCESS, 'Usuário cadastrado com sucesso!')
         return redirect("usuarios:cadastro")
     except:
