@@ -3,7 +3,11 @@ from django.urls import reverse
 from django.contrib.messages import constants
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from .forms import *
 
 @login_required(login_url = 'usuarios:login')
 def home(request):
-    return render(request, 'home.html')
+    form_cliente = Cliente()
+    return render(request, 'home.html', context={
+        'form': form_cliente
+    })

@@ -7,4 +7,11 @@
         {% endfor %}
     {% endif %}
     <h1>Seja bem-vindo <span class="badge badge-secondary">{{ user.username }}</span></h1>
+    <form action="#" method="post">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <input type="submit" value="Enviar" class="btn btn-success">
+    </form>
 {% endblock conteudo %}
