@@ -7,6 +7,12 @@
         #id_idade{
             border: 2px solid blue;
         }
+        #id_data{
+            border: 1px solid red;
+        }
+        #id_email{
+            border: 2px solid blue;
+        }
     </style>
 {% endblock head %}
 {% block titulo %}Página Inicial{% endblock titulo %}
@@ -18,12 +24,9 @@
             {% endfor %}
         {% endif %}
         <h1>Seja bem-vindo <span class="badge badge-secondary">{{ user.username }}</span></h1>
-        <form action="#" method="post">
+        <form action="{% url 'plataforma:home' %}" method="POST">
             {% csrf_token %}
-                {{ form.nome.label }}
-                {{ form.nome }}
-                {{ form.idade.label }}
-                {{ form.idade }}
+                {{ form }}
             <br>
             <input type="submit" value="Enviar" class="btn btn-success">
         </form>
