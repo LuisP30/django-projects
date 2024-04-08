@@ -4,15 +4,13 @@
         #id_nome{
             border: 1px solid red;
         }
-        #id_idade{
+        #id_descricao{
             border: 2px solid blue;
         }
-        #id_data{
+        #id_n_paginas{
             border: 1px solid red;
         }
-        #id_email{
-            border: 2px solid blue;
-        }
+
     </style>
 {% endblock head %}
 {% block titulo %}Página Inicial{% endblock titulo %}
@@ -26,7 +24,9 @@
         <h1>Seja bem-vindo <span class="badge badge-secondary">{{ user.username }}</span></h1>
         <form action="{% url 'plataforma:home' %}" method="POST">
             {% csrf_token %}
-                {{ form }}
+            <table>
+                {{ form }} <!--form.as_p-->
+            </table>
             <br>
             <input type="submit" value="Enviar" class="btn btn-success">
         </form>

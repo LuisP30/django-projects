@@ -1,10 +1,21 @@
 from django import forms
+from .models import *
 
-class Cliente(forms.Form):
-    nome = forms.CharField(max_length=20)
-    idade = forms.IntegerField()
-    data = forms.DateField()
-    email = forms.EmailField()
+# MODEL FORM
+class LivroForm(forms.ModelForm):
+    class Meta:
+        model = Livro
+        fields = ('nome', 'descricao', 'n_paginas',) # ou '__all__'
+
+
+
+# FORM DO DJANGO
+
+# class Cliente(forms.Form):
+#     nome = forms.CharField(max_length=20)
+#     idade = forms.IntegerField()
+#     data = forms.DateField()
+#     email = forms.EmailField()
 
     # def __init__(self, alterar = True, classe = 'form-control', *args, **kwargs): # Eu que criei as variáveis alterar e class
     #     super().__init__(*args, **kwargs)
