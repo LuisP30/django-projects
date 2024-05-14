@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -123,3 +124,16 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Email
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# Utilizando o python decouple irei pegar as informações presentes no arquivo ".env"
+
+DEFAULT_FROM_EMAIL = 'pimenta.lh2@gmail.com'
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('email_host_password')
+EMAIL_USE_TLS= config('EMAIL_USE_TLS')
+EMAIL_PORT= config('EMAIL_PORT')
+EMAIL_HOST= config('EMAIL_HOST')
