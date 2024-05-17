@@ -6,5 +6,5 @@ from PIL import Image, ImageFont, ImageDraw
 def envia_email_com_anexo(email):
     coord_nome = (533, 630)
     imagem = Image.open()
-    message = EmailMessage('Assunto', 'Essa é a minha mensagem', 'pimenta.lh2@gmail.com', [email])
+    message = EmailMessage('Certificado', 'Aqui está o seu certificado de inscrição', 'pimenta.lh2@gmail.com', [email])
     message.attach_file('certificado.png')
