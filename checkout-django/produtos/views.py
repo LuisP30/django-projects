@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import stripe
 from django.conf import settings
-from .models import Produto
+from .models import Produto, Pedido
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
@@ -36,6 +36,8 @@ def create_checkout_session(request, id):
     ],
     metadata={
     'id_produto': produto.id,
+    'nome': 'Luis Henrique',
+    'endereco': 'Rua Principal'
     },
     mode='payment',
     success_url=YOUR_DOMAIN + '/sucesso',
@@ -70,6 +72,11 @@ def stripe_webhook(request):
     # Se a conta for aprovada:
     if event['type'] == 'checkout.session.completed':
         session = event['data']['object']
-        print('Aprovada')
-    
+        pedido = Pedido(produto_id=session['metadata']['id_produto'], 
+                        email=session['customer_details']['email'],
+                        nome=session['metadata']['nome'],
+                        endereco=session['metadata']['endereco'],
+                        status=event['type']
+                        )
+        pedido.save()
     return HttpResponse(status=200)
