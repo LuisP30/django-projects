@@ -14,37 +14,44 @@ def home(request):
         'STRIPE_PUBLIC_KEY': settings.STRIPE_PUBLIC_KEY
     })
 
-def create_checkout_session(request, id):
+# def create_checkout_session(request, id):
+#     produto = Produto.objects.get(id = id)
+#     YOUR_DOMAIN = "http://127.0.0.1:8000"
+#     checkout_session = stripe.checkout.Session.create(
+#     line_items=[
+#         {
+#         'price_data': {
+#         'currency': 'BRL',
+#         'unit_amount': int(produto.preco),
+#         'product_data': {
+#             'name': produto.nome
+#         }
+#         },
+#         'quantity': 1,
+#         },
+#     ],
+#     payment_method_types=[
+#     'card',
+#     'boleto',
+#     ],
+#     metadata={
+#     'id_produto': produto.id,
+#     'nome': 'Luis Henrique',
+#     'endereco': 'Rua Principal'
+#     },
+#     mode='payment',
+#     success_url=YOUR_DOMAIN + '/sucesso',
+#     cancel_url=YOUR_DOMAIN + '/erro',
+#     )
+#     return JsonResponse({'id': checkout_session.id})
+@csrf_exempt
+def create_payment(request, id):
     produto = Produto.objects.get(id = id)
-    YOUR_DOMAIN = "http://127.0.0.1:8000"
-    checkout_session = stripe.checkout.Session.create(
-    line_items=[
-        {
-        'price_data': {
-        'currency': 'BRL',
-        'unit_amount': int(produto.preco),
-        'product_data': {
-            'name': produto.nome
-        }
-        },
-        'quantity': 1,
-        },
-    ],
-    payment_method_types=[
-    'card',
-    'boleto',
-    ],
-    metadata={
-    'id_produto': produto.id,
-    'nome': 'Luis Henrique',
-    'endereco': 'Rua Principal'
-    },
-    mode='payment',
-    success_url=YOUR_DOMAIN + '/sucesso',
-    cancel_url=YOUR_DOMAIN + '/erro',
+    intent = stripe.PaymentIntent.create(
+        amount=int(produto.preco),
+        currency='BRL'                                                          
     )
-    return JsonResponse({'id': checkout_session.id})
-
+    return JsonResponse({'clientSecret': intent['client_secret']})
 def sucesso(request):
     return HttpResponse('Sucesso')
 
