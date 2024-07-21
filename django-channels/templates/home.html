@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+   
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django Channels</title>
+</head>
+<body>
+    <button id="btn">
+        Enviar
+    </button>
+
+
+
+    <script>
+    
+        const chatSocket = new WebSocket("ws://127.0.0.1:8000/ws/app/")
+
+        chatSocket.onmessage = function(event){
+            const data = JSON.parse(event.data)
+            console.log(data.message)
+
+        }
+
+        var btn = document.getElementById('btn')
+        btn.addEventListener("click", function(event){
+            chatSocket.send(JSON.stringify({
+                'message': 'teste'
+            }));
+
+
+
+        }, true)
+
+
+    </script>
+
+</body>
+</html>
