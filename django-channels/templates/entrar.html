@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salas</title>
+</head>
+<body>
+    <form action="{% url 'entrar' %}" method="POST">
+        {% csrf_token %}
+        <input type="text" placeholder="Nome da sala" name="nomeSala">
+        <input type="text" placeholder="Senha da sala" name="senhaSala">
+        <input type="submit" value="Entrar">
+    </form>
+</body>
+</html>
