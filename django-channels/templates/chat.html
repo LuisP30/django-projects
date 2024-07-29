@@ -7,6 +7,9 @@
     <title>{{ nome }}</title>
 </head>
 <body>
+    <textarea name="" id="chat" readonly></textarea>
+    <br>
+    <input type="text" id="texto" placeholder="Digite sua mensagem">
     <button id="btn">
         Enviar
     </button>
@@ -15,18 +18,20 @@
 
     <script>
     
-        const chatSocket = new WebSocket("ws://127.0.0.1:8000/ws/app/")
+        const chatSocket = new WebSocket("ws://127.0.0.1:8000/ws/app/{{ nome }}/")
 
+        // Recebe mensagem
         chatSocket.onmessage = function(event){
             const data = JSON.parse(event.data)
-            console.log(data.message)
+            document.getElementById('chat').value += `${data.message} \n`
+            document.getElementById('texto').value = ''
 
         }
-
+        // Envia mensagem
         var btn = document.getElementById('btn')
         btn.addEventListener("click", function(event){
             chatSocket.send(JSON.stringify({
-                'message': 'teste'
+                'message': document.getElementById('texto').value
             }));
 
 
