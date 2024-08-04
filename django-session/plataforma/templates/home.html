@@ -18,7 +18,7 @@
     <div class="container">
         {% if messages %}
             {% for message in messages %}
-                <div class="alert {{ message.tags }}" role>{{ message }}</div>
+                <div class="alert {{ message.tags }}">{{ message }}</div>
             {% endfor %}
         {% endif %}
         <h1>Seja bem-vindo <span class="badge badge-secondary">{{ user.username }}</span></h1>
