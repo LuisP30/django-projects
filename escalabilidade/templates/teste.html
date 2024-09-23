@@ -1,0 +1,19 @@
+{% load cache %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cache</title>
+</head>
+<body>
+    <h1>Aula de cache</h1>
+    <br>
+    {% cache 60 user %}
+        <p>Lista de usuários:</p>
+        {% for usuario in usuarios %}
+            <p>{{ usuario }}</p>
+        {% endfor %}
+    {% endcache %}
+</body>
+</html>
