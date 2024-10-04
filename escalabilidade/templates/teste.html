@@ -9,6 +9,7 @@
 <body>
     <h1>Aula de cache</h1>
     <br>
+    <!--Apenas este trecho abaixo ficará em cache-->
     {% cache 60 user %}
         <p>Lista de usuários:</p>
         {% for usuario in usuarios %}
