@@ -1,12 +1,23 @@
 from ninja import Router
-from django.http import JsonResponse
+from django.http import HttpRequest, HttpResponse
 from typing import List, Dict
 from ninja import Schema
 from .schemas import Alimento
 from ..models import Alimento as ModelAlimento
 from django.shortcuts import get_object_or_404
+from ninja.security import HttpBearer
+from django.contrib.auth.models import User
 
 alimentos_router = Router()
+
+
+# AUTENTICAÇÃO
+# # Nesse caso a autenticação poderá ser utilizada apenas nessa parte da minha API
+# class MyAuth(HttpBearer):
+#     def authenticate(self, request: HttpRequest, token: str):
+#         if token == '1234':
+#             return token
+# Então é só passar a instância de MyAuth() em algum endpoint (parâmetro auth de algum decorator)
 
 # alimentos = [
 #     {"Nome": "Banana", "Quantidade": 5, "id": 1},
@@ -43,11 +54,16 @@ alimentos_router = Router()
 #     return {'alimento_id': 1}
 
 
-# Trabalhando com Models
+# Trabalhando com Models // Se eu quiser que precise de autenticação apenas em um endpoint, passo o parâmetro auth no decorator abaixo
 @alimentos_router.get('/{int:alimento_id}/', response=Alimento) # Definindo que a resposta será do tipo Alimento (Schema)
-def get_alimento(request, alimento_id: int):
+# Recebendo a requisição e a resposta como parâmetro e informado o tipo de cada uma delas
+def get_alimento(request: HttpRequest, response: HttpResponse , alimento_id: int):
+    # Adicionando um cookie
+    response.set_cookie('teste_aula', '124')
     alimento = ModelAlimento.objects.get(id=alimento_id)
+    # User.objects.get(id=request.user)
     print(alimento)
+    print(request.auth)
     return alimento
 
 # Criando um objeto com post
